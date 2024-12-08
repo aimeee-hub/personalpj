@@ -30,8 +30,13 @@
                         </div>
 
                         <div class="form-group">
-                        <label for="category">種別</label>
-                        <input type="text" class="form-control" id="type" name="type" value="{{$edit->type}}">
+                        <label for="typetype">種別</label>
+                            <select class="form-control" id="category" name="category" required>
+                                <option selected disabled>選択してください</option>
+                                @foreach ($types as $type)
+                                    <option>{{$type->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">

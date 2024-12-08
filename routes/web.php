@@ -42,5 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [App\Http\Controllers\TypeController::class, 'index']);
         Route::get('/add', [App\Http\Controllers\TypeController::class, 'add']);
         Route::post('/add', [App\Http\Controllers\TypeController::class, 'add']);
+        Route::get('/edit/{edit_id}', [App\Http\Controllers\TypeController::class, 'edit']);
+        Route::put('/update/{update_id}', [App\Http\Controllers\ItemController::class, 'update']);
     }); 
 });

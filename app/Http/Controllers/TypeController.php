@@ -59,6 +59,16 @@ class TypeController extends Controller
         return view('Type.add');
     }
 
+    /**
+     * 種別編集ページへ移動
+     */
 
+    public function edit($edit_id)
+    {   
+    $edit = Type::find($edit_id);
+    $type = Type::find($edit->item_id);
+    $types = Type::all();
+    return view('type.edit', ['edit' => $edit,'type' => $type, 'types' => $types,]);
+    }
 
 }

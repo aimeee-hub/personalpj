@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\Type;
 
 class ItemController extends Controller
 {
@@ -18,30 +19,45 @@ class ItemController extends Controller
         $this->middleware('auth');
     }
 
+
     /**
      * 商品一覧
      */
     public function index()
     {
-        // 商品一覧取得
         $items = Item::all();
-
-        return view('item.index', compact('items'))->with([
-            'items' => $items,
-        ]);
+        return view('item.index', compact('items'));
     }
+
 
     /**
      * 商品登録
      */
     public function add(Request $request)
     {
+        //GETリクエストのとき
+        if ($request->isMethod('get')) {
+            $types = Type::all();
+            return view('item.add', compact('types'));
+            }
+
         // POSTリクエストのとき
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'type' => 'required|max:100',
+                'detail' => 'required|max:255',
             ]);
+
+            $existingType = Type::where('name', $request->input('type'))->first();
+
+            // カテゴリ名が存在しない場合のみ、新しいカテゴリを作成
+            if (!$existingType) {
+                $type = Type::create(['name' => $request->input('type')]);
+            } else {
+                $type = $existingType;
+            }
 
             // 商品登録
             Item::create([
@@ -64,9 +80,9 @@ class ItemController extends Controller
     public function edit($edit_id)
         {   
             $edit = Item::find($edit_id);
-            $item = Item::find($edit->item_id);
-            $items = Item::all();
-            return view('item.edit', ['edit' => $edit,]);
+            $type = Type::find($edit->item_id);
+            $types = Type::all();
+            return view('item.edit', ['edit' => $edit,'type' => $type, 'types' => $types,]);
         }
 
 
