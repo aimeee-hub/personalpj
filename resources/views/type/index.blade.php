@@ -26,9 +26,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>種別</th>
-                                <th> 商品数</th>
+                                <th>詳細</th>
                                 <th> 操作</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,7 +35,7 @@
                                 <tr>
                                     <td>{{ $type->id }}</td>
                                     <td>{{ $type->name }}</td>
-                                    <td></td>
+                                    <td>{{ $type->detail }}</td>
                                     <td><a href="{{ url('types/edit', ['edit_id' => $type->id]) }}" class="btn btn-default">編集</a></td>
                                 </tr>
                             @endforeach

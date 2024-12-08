@@ -40,5 +40,7 @@ Route::middleware('auth')->group(function () {
     // 種別
     Route::prefix('types')->group(function () {
         Route::get('/', [App\Http\Controllers\TypeController::class, 'index']);
+        Route::get('/add', [App\Http\Controllers\TypeController::class, 'add']);
+        Route::post('/add', [App\Http\Controllers\TypeController::class, 'add']);
     }); 
 });

@@ -1,33 +1,64 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Type;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Type;
 
 class TypeController extends Controller
 {
-        
+
+
+    /* 会員一覧
+    *＠param Request $request
+     *@return Response
+     *
+     */
+
+    
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function index(Request $request){
-        //Categoryテーブルに入っているレコードを全て取得する
+    /**
+     * 種別一覧
+     */
+    public function index()
+    {
+        // 種別一覧取得
         $types = Type::all();
-    
-        return view('type.index')->with([
+
+        return view('type.index', compact('types'))->with([
             'types' => $types,
         ]);
     }
-
-    //種別一覧に遷移
-        
-    public function create(Request $request){
-
-        return view('categories.create');
     
+    /**
+     * 種別登録
+     */
+    public function add(Request $request)
+    {
+        // POSTリクエストのとき
+        if ($request->isMethod('post')) {
+            // バリデーション
+            $this->validate($request, [
+                'name' => 'required|max:100',
+            ]);
+
+            // 商品登録
+            Type::create([
+                'name' => $request->name,
+                'detail' => $request->detail,
+            ]);
+
+            return redirect('/types');
+        }
+
+        return view('Type.add');
     }
+
+
+
 }
