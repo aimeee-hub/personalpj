@@ -27,5 +27,6 @@ Route::prefix('items')->group(function () {
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::get('/edit/{edit_id}', [App\Http\Controllers\ItemController::class, 'edit']);
     Route::put('/update/{update_id}', [App\Http\Controllers\ItemController::class, 'update']);
+    Route::delete('/delete/{delete_id}', [App\Http\Controllers\ItemController::class, 'destroy']);
     
 });

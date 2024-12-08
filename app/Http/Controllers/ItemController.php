@@ -91,4 +91,11 @@ class ItemController extends Controller
         ]);
         return redirect('/items');
     }
+
+        /* 商品削除 */
+        public function destroy(Request $request, $delete_id){
+            $item = Item::find($delete_id);
+            $item->delete();
+            return redirect('/items');
+        }
 }

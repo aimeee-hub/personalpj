@@ -44,6 +44,14 @@
                         <button type="submit" class="btn btn-primary">更新</button>
                     </div>
             </form>
+
+            <form action="{{ url('items/delete', ['delete_id' => $edit->id]) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
+                    @csrf
+                    @method('DELETE')
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-danger">削除</button>
+                    </div>
+            </form>
             </div>
         </div>
     </div>
