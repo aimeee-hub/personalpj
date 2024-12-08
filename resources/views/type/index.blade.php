@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', '商品一覧')
+@section('title', '種別一覧')
 
 @section('content_header')
-    <h1>商品一覧</h1>
+    <h1>種別一覧</h1>
 @stop
 
 @section('content')
@@ -11,11 +11,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">商品一覧</h3>
+                    <h3 class="card-title">種別一覧</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
-                                <a href="{{ url('items/add') }}" class="btn btn-default">商品登録</a>
+                                <a href="{{ url('types/add') }}" class="btn btn-default">種別登録</a>
                             </div>
                         </div>
                     </div>
@@ -25,20 +25,19 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>名前</th>
                                 <th>種別</th>
-                                <th>詳細</th>
-                                <th>操作</th>
+                                <th> 商品数</th>
+                                <th> 操作</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items as $item)
+                            @foreach ($types as $type)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->detail }}</td>
-                                    <td><a href="{{ url('items/edit', ['edit_id' => $item->id]) }}" class="btn btn-default">編集</a></td>
+                                    <td>{{ $type->id }}</td>
+                                    <td>{{ $type->name }}</td>
+                                    <td></td>
+                                    <td><a href="{{ url('types/edit', ['edit_id' => $type->id]) }}" class="btn btn-default">編集</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -54,3 +53,4 @@
 
 @section('js')
 @stop
+

@@ -296,6 +296,11 @@ return [
             'icon' => 'fas fa-gamepad',
         ],
 
+        [
+            'text' => '種別一覧',
+            'url'  => 'types',
+        ],
+
         // AdminLTEデフォルト
         /*
         // Navbar items:

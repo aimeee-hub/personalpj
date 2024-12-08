@@ -19,14 +19,26 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('items')->group(function () {
-    Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
-    Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
-    Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
-    Route::get('/edit/{edit_id}', [App\Http\Controllers\ItemController::class, 'edit']);
-    Route::put('/update/{update_id}', [App\Http\Controllers\ItemController::class, 'update']);
-    Route::delete('/delete/{delete_id}', [App\Http\Controllers\ItemController::class, 'destroy']);
-    
+// ログイン必須のルーティング
+Route::middleware('auth')->group(function () {
+
+    // 商品
+    Route::prefix('items')->group(function () {
+        Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
+        Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
+        Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
+        Route::get('/edit/{edit_id}', [App\Http\Controllers\ItemController::class, 'edit']);
+        Route::put('/update/{update_id}', [App\Http\Controllers\ItemController::class, 'update']);
+        Route::delete('/delete/{delete_id}', [App\Http\Controllers\ItemController::class, 'destroy']);
+        
+    });
+
+    // 種別
+    Route::prefix('types')->group(function () {
+        Route::get('/', [App\Http\Controllers\TypeController::class, 'index']);
+    }); 
 });
