@@ -40,7 +40,7 @@ class ItemController extends Controller
             $types = Type::all();
             return view('item.add', compact('types'));
             }
-
+            
         // POSTリクエストのとき
         if ($request->isMethod('post')) {
             // バリデーション
@@ -59,12 +59,15 @@ class ItemController extends Controller
                 $type = $existingType;
             }
 
+
             // 商品登録
             Item::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
-                'type' => $request->type,
+                'type' => $type->id,
                 'detail' => $request->detail,
+                'options' => 'required',
+                'other' => 'required_if:options,other',
             ]);
 
             return redirect('/items');
@@ -96,7 +99,7 @@ class ItemController extends Controller
             'type' => 'required|max:100',
             'detail' => 'required|max:255',
         ]);
-    
+        
 
         //商品情報の更新
         

@@ -12,9 +12,9 @@
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
-                       @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                       @endforeach
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
                     </ul>
                 </div>
             @endif
@@ -30,12 +30,17 @@
 
                         <div class="form-group">
                         <label for="type">種別</label>
-                            <select class="form-control" id="category" name="category" required>
+                            <select class="form-control" id="category" name="type" required>
                                 <option selected disabled>選択してください</option>
                                 @foreach ($types as $type)
                                     <option>{{$type->name}}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div id="otherField" style="display: none;">
+                                <label for="other">その他の詳細:</label>
+                                <input type="text" id="other" name="other" required>
                         </div>
 
                         <div class="form-group">
@@ -48,6 +53,7 @@
                         <button type="submit" class="btn btn-primary">登録</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

@@ -25,13 +25,8 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                        <label for="type">種別</label>
-                            <select class="form-control" id="category" name="category" required>
-                                <option selected disabled>選択してください</option>
-                                @foreach ($types as $type)
-                                    <option>{{$type->name}}</option>
-                                @endforeach
-                            </select>
+                            <label for="name">種別</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{$edit->name}}">
                         </div>
 
                         <div class="form-group">
@@ -45,7 +40,7 @@
                     </div>
             </form>
 
-            <form action="{{ url('items/delete', ['delete_id' => $edit->id]) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
+            <form action="{{ url('types/delete', ['delete_id' => $edit->id]) }}" method="POST" onsubmit="return confirm('本当に削除してもよろしいですか？')">
                     @csrf
                     @method('DELETE')
                     <div class="card-footer">

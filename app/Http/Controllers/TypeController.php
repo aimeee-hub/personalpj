@@ -66,9 +66,34 @@ class TypeController extends Controller
     public function edit($edit_id)
     {   
     $edit = Type::find($edit_id);
-    $type = Type::find($edit->item_id);
+    $type = Type::find($edit->type_id);
     $types = Type::all();
     return view('type.edit', ['edit' => $edit,'type' => $type, 'types' => $types,]);
     }
 
+        /* 種別情報の更新 */
+        public function update(Request $request, $update_id)
+        {
+            // バリデーション
+            $this->validate($request, [
+                'name' => 'required|max:100',
+                'detail' => 'required|max:255',
+            ]);
+        
+    
+            //商品情報の更新
+            
+            Type::find($update_id)->update([
+                'name' => $request->input('name'),
+                'detail' => $request->input('detail'),
+            ]);
+            return redirect('/types');
+        }
+    
+    /* 商品削除 */
+    public function destroy(Request $request, $delete_id){
+        $type = Type::find($delete_id);
+        $type->delete();
+        return redirect('/types');
+    }
 }
