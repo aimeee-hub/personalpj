@@ -27,12 +27,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        // 種別一覧取得
         $types = Type::all();
-
-        return view('type.index', compact('types'))->with([
-            'types' => $types,
-        ]);
+        return view('type.index', compact('types'));
     }
     
     /**
@@ -56,7 +52,7 @@ class TypeController extends Controller
             return redirect('/types');
         }
 
-        return view('Type.add');
+        return view('type.add');
     }
 
     /**

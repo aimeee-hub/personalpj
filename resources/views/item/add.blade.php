@@ -29,18 +29,22 @@
                         </div>
 
                         <div class="form-group">
-                        <label for="type">種別</label>
-                            <select class="form-control" id="category" name="type" required>
+                            <label for="type">種別</label>
+                            <select class="form-control" id="category" name="type" required onchange="toggleOtherField()">
                                 <option selected disabled>選択してください</option>
                                 @foreach ($types as $type)
-                                    <option>{{$type->name}}</option>
+                                    <option value={{$type->id}}>{{ $type->name }}</option>
                                 @endforeach
+                                <option value="other">その他</option>
                             </select>
-                        </div>
 
-                        <div id="otherField" style="display: none;">
-                                <label for="other">その他の詳細:</label>
-                                <input type="text" id="other" name="other" required>
+                            <div id="otherField" style="display: none; margin-top: 10px;">
+                                <label for="other">その他種別:</label>
+                                <input type="text" class="form-control" id="other" name="type-name">
+                            
+                                <label for="other">種別詳細:</label>
+                                <input type="text" class="form-control" id="other" name="type-detail">
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -53,6 +57,22 @@
                         <button type="submit" class="btn btn-primary">登録</button>
                     </div>
                 </form>
+
+                <script>
+                    function toggleOtherField() {
+                        const select = document.getElementById('category'); // 修正: 'options' → 'category'
+                        const otherField = document.getElementById('otherField');
+                        const otherInput = document.getElementById('other');
+
+                        if (select.value === 'other') {
+                            otherField.style.display = 'block';
+                            otherInput.setAttribute('required', 'required');
+                        } else {
+                            otherField.style.display = 'none';
+                            otherInput.removeAttribute('required');
+                        }
+                    }
+                </script>
 
             </div>
         </div>

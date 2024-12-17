@@ -39,8 +39,8 @@ class ItemController extends Controller
         if ($request->isMethod('get')) {
             $types = Type::all();
             return view('item.add', compact('types'));
-            }
-            
+        }
+
         // POSTリクエストのとき
         if ($request->isMethod('post')) {
             // バリデーション
@@ -50,13 +50,14 @@ class ItemController extends Controller
                 'detail' => 'required|max:255',
             ]);
 
-            $existingType = Type::where('name', $request->input('type'))->first();
-
-            // カテゴリ名が存在しない場合のみ、新しいカテゴリを作成
-            if (!$existingType) {
-                $type = Type::create(['name' => $request->input('type')]);
-            } else {
-                $type = $existingType;
+            // 種別テーブルにデータ登録または取得
+            $type_id = $request->type;
+            if ($request->type == 'other') {
+                $type = Type::firstOrCreate(
+                    ['name' => $request->input('type-name')],  // 検索条件
+                    ['detail' => $request->input('type-detail') ?? null] // 新規作成時のみ
+                );
+                $type_id = $type->id;
             }
 
 
@@ -64,11 +65,14 @@ class ItemController extends Controller
             Item::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
-                'type' => $type->id,
+                'type' => $type_id,
                 'detail' => $request->detail,
                 'options' => 'required',
                 'other' => 'required_if:options,other',
             ]);
+
+
+
 
             return redirect('/items');
         }
@@ -81,12 +85,12 @@ class ItemController extends Controller
      */
 
     public function edit($edit_id)
-        {   
-            $edit = Item::find($edit_id);
-            $type = Type::find($edit->item_id);
-            $types = Type::all();
-            return view('item.edit', ['edit' => $edit,'type' => $type, 'types' => $types,]);
-        }
+    {
+        $edit = Item::find($edit_id);
+        $type = Type::find($edit->type);
+        $types = Type::all();
+        return view('item.edit', ['edit' => $edit, 'type' => $type, 'types' => $types,]);
+    }
 
 
 
@@ -99,10 +103,10 @@ class ItemController extends Controller
             'type' => 'required|max:100',
             'detail' => 'required|max:255',
         ]);
-        
+
 
         //商品情報の更新
-        
+
         Item::find($update_id)->update([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
@@ -111,10 +115,11 @@ class ItemController extends Controller
         return redirect('/items');
     }
 
-        /* 商品削除 */
-        public function destroy(Request $request, $delete_id){
-            $item = Item::find($delete_id);
-            $item->delete();
-            return redirect('/items');
-        }
+    /* 商品削除 */
+    public function destroy(Request $request, $delete_id)
+    {
+        $item = Item::find($delete_id);
+        $item->delete();
+        return redirect('/items');
+    }
 }
