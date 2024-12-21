@@ -18,6 +18,11 @@ class Item extends Model
         'detail',
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -34,8 +39,6 @@ class Item extends Model
     protected $casts = [
     ];
 
-    public function type()
-    {
-        return $this->belongsTo(Type::class);
-    }
 }
+
+

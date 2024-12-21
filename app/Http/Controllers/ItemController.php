@@ -25,7 +25,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        // Item モデルと Type モデルをリレーションで一緒に取得
+        $items = Item::with('type')->get();
         return view('item.index', compact('items'));
     }
 
@@ -65,7 +66,7 @@ class ItemController extends Controller
             Item::create([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
-                'type' => $type_id,
+                'type_id' => $type_id,
                 'detail' => $request->detail,
                 'options' => 'required',
                 'other' => 'required_if:options,other',
@@ -89,31 +90,29 @@ class ItemController extends Controller
         $edit = Item::find($edit_id);
         $type = Type::find($edit->type);
         $types = Type::all();
-        return view('item.edit', ['edit' => $edit, 'type' => $type, 'types' => $types,]);
+        return view('item.edit', ['edit' => $edit, 'type_id_id' => $type, 'types' => $types,]);
     }
 
-
-
-    /* 商品情報の更新 */
     public function update(Request $request, $update_id)
-    {
-        // バリデーション
-        $this->validate($request, [
-            'name' => 'required|max:100',
-            'type' => 'required|max:100',
-            'detail' => 'required|max:255',
-        ]);
+{
+    // バリデーション
+    $this->validate($request, [
+        'name' => 'required|max:100',
+        'type_id' => 'required|exists:types,id',  // type_idがvalidであることを確認
+        'detail' => 'required|max:255',
+    ]);
+
+    // 商品情報の更新
+    Item::find($update_id)->update([
+        'name' => $request->input('name'),
+        'type_id' => $request->input('type_id'),  // 修正箇所
+        'detail' => $request->input('detail'),
+    ]);
+
+    return redirect('/items');
+}
 
 
-        //商品情報の更新
-
-        Item::find($update_id)->update([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'detail' => $request->input('detail'),
-        ]);
-        return redirect('/items');
-    }
 
     /* 商品削除 */
     public function destroy(Request $request, $delete_id)

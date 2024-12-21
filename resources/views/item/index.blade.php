@@ -36,7 +36,13 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type->name }}</td>
+                                    <td>
+                                        @if($item->type)
+                                            {{ $item->type->name }}
+                                        @else
+                                            未設定
+                                        @endif
+                                    </td>
                                     <td>{{ $item->detail }}</td>
                                     <td><a href="{{ url('items/edit', ['edit_id' => $item->id]) }}" class="btn btn-default">編集</a></td>
                                 </tr>

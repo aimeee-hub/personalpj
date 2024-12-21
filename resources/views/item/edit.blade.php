@@ -30,15 +30,16 @@
                         </div>
 
                         <div class="form-group">
-                        <label for="typetype">種別</label>
-                            <select class="form-control" id="type" name="type" required>
-                                <option selected disabled>選択してください</option>
+                            <label for="typetype">種別</label>
+                            <select class="form-control" id="type" name="type_id" required>
+                                <option disabled>選択してください</option>
                                 @foreach ($types as $type)
-                                    <option>{{$type->name}}</option>
+                                    <option value="{{ $type->id }}" @if($type->id == $edit->type_id) selected @endif>
+                                        {{ $type->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label for="detail">詳細</label>
                             <input type="text" class="form-control" id="detail" name="detail" value="{{$edit->detail}}">
