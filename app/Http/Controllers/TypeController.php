@@ -41,6 +41,7 @@ class TypeController extends Controller
             // バリデーション
             $this->validate($request, [
                 'name' => 'required|max:100',
+                'detail' => 'required|max:50',
             ]);
 
             // 商品登録
