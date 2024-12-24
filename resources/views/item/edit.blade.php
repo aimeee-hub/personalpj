@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="typetype">種別</label>
+                            <label for="type">種別</label>
                             <select class="form-control" id="type" name="type_id" required>
                                 <option disabled>選択してください</option>
                                 @foreach ($types as $type)

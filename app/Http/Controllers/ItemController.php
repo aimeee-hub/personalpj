@@ -46,9 +46,10 @@ class ItemController extends Controller
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, [
-                'name' => 'required|max:100',
-                'type' => 'required|max:100',
-                'detail' => 'required|max:255',
+                'name' => 'required|max:50',
+                'type' => 'required|max:50',
+                'detail' => 'required|max:100',
+                'other' =>'required|max:50',
             ]);
 
             // 種別テーブルにデータ登録または取得
@@ -97,9 +98,9 @@ class ItemController extends Controller
 {
     // バリデーション
     $this->validate($request, [
-        'name' => 'required|max:100',
+        'name' => 'required|max:50',
         'type_id' => 'required|exists:types,id',  // type_idがvalidであることを確認
-        'detail' => 'required|max:255',
+        'detail' => 'required|max:100',
     ]);
 
     // 商品情報の更新
