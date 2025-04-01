@@ -22,5 +22,5 @@ ID：test1@techis
 ```
 PHP：8.3.12
 laravel：10.48.25
-SQL：
+Mysql：5.7.39
 ```
