@@ -12,7 +12,7 @@
 
 ### テストアカウント情報
 ```
-ID：test1@techis
+メールアドレス：test1@techis
 パスワード：testtest
 ```
 ### システム閲覧
