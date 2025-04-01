@@ -16,7 +16,7 @@ ID：test1@techis
 パスワード：testtest
 ```
 ### システム閲覧
-[アプリケーションページへ](https://item-management202412-41adadb5e264.herokuapp.com/login)
+[アプリケーションページ](https://item-management202412-41adadb5e264.herokuapp.com/login)へ
 
 ### 開発環境
 ```
