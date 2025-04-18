@@ -49,7 +49,7 @@ class ItemController extends Controller
                 'name' => 'required|max:50',
                 'type' => 'required|max:50',
                 'detail' => 'required|max:100',
-                'other' =>'required|max:50',
+                'other' =>'required_if:options,other|max:50',
             ]);
 
             // 種別テーブルにデータ登録または取得
@@ -66,11 +66,11 @@ class ItemController extends Controller
             // 商品登録
             Item::create([
                 'user_id' => Auth::user()->id,
-                'name' => $request->name,
+                'name' => $request->input('name'),
                 'type_id' => $type_id,
-                'detail' => $request->detail,
-                'options' => 'required',
-                'other' => 'required_if:options,other',
+                'detail' => $request->input('detail'),
+                'options' => $request->input('options'),
+                'other' =>  $request->input('other'),
             ]);
 
 
